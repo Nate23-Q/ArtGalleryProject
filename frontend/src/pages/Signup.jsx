@@ -34,7 +34,7 @@ export default function Signup() {
     }
 
     try {
-      const data = await apiRequest('/auth/signup', {
+      const data = await apiRequest('/api/auth/signup', {
         method: 'POST',
         body: JSON.stringify({
           fullName: formData.fullName,

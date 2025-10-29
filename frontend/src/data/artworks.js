@@ -14,7 +14,7 @@ export const artworks = [
     description: "A powerful bronze sculpture that embodies strength and protection",
     price: 3500,
     category: "sculpture",
-    imageUrl: "https://images.unsplash.com/photo-1561839561-b13bcfe95249?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1000&auto=format&fit=crop",
     artist: "Marcus Rivera"
   },
   {

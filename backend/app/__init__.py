@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
 from .config import Config
 from .extensions import db, migrate, jwt, ma
 
@@ -7,6 +8,9 @@ from .extensions import db, migrate, jwt, ma
 def create_app(config_object: str = None):
     app = Flask(__name__)
     app.config.from_object(config_object or Config)
+
+    # Enable CORS
+    CORS(app)
 
     # init extensions
     db.init_app(app)

@@ -35,7 +35,7 @@ export default function Login() {
     }
 
     try {
-      const data = await apiRequest(`/auth/${mode}`, {
+      const data = await apiRequest(`/api/auth/${mode}`, {
         method: 'POST',
         body: JSON.stringify({
           email: formData.email,

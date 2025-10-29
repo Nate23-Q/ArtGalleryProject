@@ -17,7 +17,7 @@ export default function ArtworkDetail() {
 
   const fetchArtwork = async () => {
     try {
-      const data = await apiRequest(`/artwork/${id}`);
+      const data = await apiRequest(`/api/gallery/${id}`);
       setArtwork(data);
     } catch (err) {
       setError('Error loading artwork');
@@ -33,7 +33,7 @@ export default function ArtworkDetail() {
     }
 
     try {
-      await apiRequest('/cart', {
+      await apiRequest('/api/customer/orders', {
         method: 'POST',
         body: JSON.stringify({ artworkId: id }),
       });
@@ -53,7 +53,7 @@ export default function ArtworkDetail() {
     }
 
     try {
-      await apiRequest('/wishlist', {
+      await apiRequest('/api/customer/artworks', {
         method: 'POST',
         body: JSON.stringify({ artworkId: id }),
       });

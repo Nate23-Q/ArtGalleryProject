@@ -55,6 +55,11 @@
   color: #ff4b4b;
 }
 
+.wishlist-btn.active svg {
+  color: #ff4b4b;
+  fill: #ff4b4b;
+}
+
 .category-tag {
   position: absolute;
   bottom: 1rem;
