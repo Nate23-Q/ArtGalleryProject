@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-restful = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+flask-jwt-extended = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
+psycopg2-binary = "*"
+python-dotenv = "*"
+cloudinary = "*"
+sendgrid = "*"
+werkzeug = "*"
+flask-swagger = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
