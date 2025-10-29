@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useWishlist } from '../context/WishlistContext';
+import { useOrders } from '../context/OrdersContext';
+import { useAuth } from '../context/AuthContext';
 import '../styles/components/ArtworkCard.css';
 
 export default function ArtworkCard({ artwork }) {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { addOrder } = useOrders();
+  const { isLoggedIn, role } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleAddToWishlist = (e) => {
     e.preventDefault();
@@ -14,6 +20,33 @@ export default function ArtworkCard({ artwork }) {
       removeFromWishlist(artwork.id);
     } else {
       addToWishlist(artwork);
+    }
+  };
+
+  const handleBuy = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isLoggedIn) {
+      navigate('/auth');
+      return;
+    }
+
+    if (role !== 'Collector') {
+      alert('Only collectors can purchase artworks');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      addOrder(artwork);
+      alert('Order placed successfully!');
+      navigate('/orders');
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Error placing order. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,7 +79,13 @@ export default function ArtworkCard({ artwork }) {
         <p className="card-description">{artwork.description}</p>
         <div className="card-footer">
           <p className="artwork-price">${artwork.price.toLocaleString()}</p>
-          <button className="buy-button">Buy</button>
+          <button
+            className="buy-button"
+            onClick={handleBuy}
+            disabled={loading}
+          >
+            {loading ? 'Processing...' : 'Buy'}
+          </button>
         </div>
       </div>
     </div>

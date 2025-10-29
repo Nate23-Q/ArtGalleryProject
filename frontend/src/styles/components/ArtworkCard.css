@@ -120,3 +120,8 @@
 .buy-button:hover {
   background: #660000;
 }
+
+.buy-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

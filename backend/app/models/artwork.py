@@ -11,6 +11,7 @@ class Artwork(db.Model):
     title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text)
     price = db.Column(db.Numeric(10, 2), nullable=False)
+    category = db.Column(db.String(50))
     image_url = db.Column(db.String(1024))
     artist_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
