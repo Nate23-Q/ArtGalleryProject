@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { apiRequest } from '../utils/api';
 import '../styles/components/ArtworkCard.css';
 
 export default function ArtworkCard({ artwork }) {
@@ -8,19 +9,12 @@ export default function ArtworkCard({ artwork }) {
     e.stopPropagation();
 
     try {
-      const response = await fetch('/api/wishlist', {
+      await apiRequest('/wishlist', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({ artworkId: artwork.id }),
       });
 
-      if (response.ok) {
-        alert('Added to wishlist!');
-      } else {
-        alert('Failed to add to wishlist');
-      }
+      alert('Added to wishlist!');
     } catch (error) {
       console.error('Error adding to wishlist:', error);
       alert('Error adding to wishlist');

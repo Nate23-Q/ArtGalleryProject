@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { apiRequest } from "../utils/api";
 import background from "../assets/login-bg.png";
 import "../styles/pages/Auth.css";
 
@@ -33,12 +34,8 @@ export default function Signup() {
     }
 
     try {
-      // Simulate API call - replace with actual API call
-      const response = await fetch('/api/auth/register', {
+      const data = await apiRequest('/auth/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           fullName: formData.fullName,
           email: formData.email,
@@ -47,16 +44,10 @@ export default function Signup() {
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        login(data.user, role);
-        navigate('/dashboard');
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || 'Signup failed');
-      }
+      login(data.user, role);
+      navigate('/dashboard');
     } catch (err) {
-      setError('Network error. Please try again.');
+      setError(err.message || 'Network error. Please try again.');
     }
   };
 

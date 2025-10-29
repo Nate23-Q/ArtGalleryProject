@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { apiRequest } from '../utils/api';
 
 export default function ArtworkDetail() {
   const { id } = useParams();
@@ -16,13 +17,8 @@ export default function ArtworkDetail() {
 
   const fetchArtwork = async () => {
     try {
-      const response = await fetch(`/api/artwork/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setArtwork(data);
-      } else {
-        setError('Artwork not found');
-      }
+      const data = await apiRequest(`/artwork/${id}`);
+      setArtwork(data);
     } catch (err) {
       setError('Error loading artwork');
     } finally {
@@ -37,20 +33,13 @@ export default function ArtworkDetail() {
     }
 
     try {
-      const response = await fetch('/api/cart', {
+      await apiRequest('/cart', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({ artworkId: id }),
       });
 
-      if (response.ok) {
-        alert('Added to cart!');
-        navigate('/cart');
-      } else {
-        alert('Failed to add to cart');
-      }
+      alert('Added to cart!');
+      navigate('/cart');
     } catch (error) {
       console.error('Error adding to cart:', error);
       alert('Error adding to cart');
@@ -64,19 +53,12 @@ export default function ArtworkDetail() {
     }
 
     try {
-      const response = await fetch('/api/wishlist', {
+      await apiRequest('/wishlist', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({ artworkId: id }),
       });
 
-      if (response.ok) {
-        alert('Added to wishlist!');
-      } else {
-        alert('Failed to add to wishlist');
-      }
+      alert('Added to wishlist!');
     } catch (error) {
       console.error('Error adding to wishlist:', error);
       alert('Error adding to wishlist');
